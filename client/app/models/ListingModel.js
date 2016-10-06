@@ -20,6 +20,7 @@ const ListingModel = Immutable.Record({
     square: new Image(),
     square2x: new Image(),
   })]),
+  orderType: new Immutable.Map(),
   price: new Immutable.Map({
     ':money': new Money(),
     ':pricingUnit': new Immutable.Map(),
@@ -36,6 +37,7 @@ export const parse = (l) => new ListingModel({
   authorId: l.getIn([':relationships', ':author', ':id']),
   distance: l.getIn([':attributes', ':distance']),
   images: l.getIn([':attributes', ':images']),
+  orderType: l.getIn([':attributes', ':orderType']),
   price: l.getIn([':attributes', ':price']),
   title: l.getIn([':attributes', ':title']),
 });

@@ -58,6 +58,7 @@ class ListingCard extends Component {
     const hasPricingUnit = price && price.get(':pricingUnit') != null;
     const pricingUnit = price ? localizedString(price.get(':pricingUnit'), 'pricing unit') : '';
     const pricingUnitFormatted = `/ ${pricingUnit}`;
+    const orderTypeLabel = localizedString(listing.orderType, 'order type');
 
     return div({
       className: classNames('ListingCard', css.listing, this.props.className),
@@ -124,7 +125,10 @@ class ListingCard extends Component {
                 div({ className: css.per }, pricingUnitFormatted) :
                 null,
             ]) :
-            div({ className: css.priceWrapper }),
+            div({
+              className: css.orderTypeLabel,
+              style: { color: this.props.color },
+            }, orderTypeLabel),
           distanceFormatted ?
             div({ className: css.distance }, [
               div({

@@ -105,6 +105,13 @@
   padding-top: 5px;
 }
 
+.orderTypeLabel {
+  flex-basis: 68%;
+  font-size: var(--ListingCard_fontSizePrice);
+  font-weight: var(--ListingCard_fontWeightMedium);
+  line-height: 1em;
+}
+
 .distance {
   flex-basis: 32%;
   display: flex;
