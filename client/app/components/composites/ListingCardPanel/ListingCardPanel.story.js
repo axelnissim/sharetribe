@@ -4,8 +4,8 @@ import Immutable from 'immutable';
 
 import { storify } from '../../Styleguide/withProps';
 import { toFixedNumber } from '../../../utils/numbers';
-import { Image, ImageRefs } from '../../../models/ImageModel';
 import ListingModel, { Distance, Money } from '../../../models/ListingModel';
+import { Image, ResponsiveImage } from '../../../models/ImageModel';
 
 import ListingCardPanel from '../ListingCardPanel/ListingCardPanel';
 import ListingCard from '../ListingCard/ListingCard';
@@ -23,11 +23,11 @@ const listingCardTemplate = (title, perUnit, price, distance) => (
       listing: new ListingModel({
         id: 'lkjg84573874yjdf',
         title,
-        images: new Immutable.List([new ImageRefs({
-          square: new Image({
+        images: new Immutable.List([new ResponsiveImage({
+          '1x': new Image({
             url: 'https://placehold.it/408x408',
           }),
-          square2x: new Image({
+          '2x': new Image({
             type: 'square2x',
             width: 816,
             height: 816,

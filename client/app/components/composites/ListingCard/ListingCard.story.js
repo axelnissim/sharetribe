@@ -4,8 +4,8 @@ import Immutable from 'immutable';
 
 import { storify } from '../../Styleguide/withProps';
 import { formatDistance, formatMoney } from '../../../utils/numbers';
-import { Image, ImageRefs } from '../../../models/ImageModel';
 import ListingModel, { Distance, Money } from '../../../models/ListingModel';
+import { Image, ResponsiveImage } from '../../../models/ImageModel';
 
 import ListingCard from './ListingCard';
 import css from './ListingCard.story.css';
@@ -21,11 +21,11 @@ const ListingCardBasic =
       listing: new ListingModel({
         id: 'lkjg84573874yjdf',
         title: 'Title',
-        images: new Immutable.List([new ImageRefs({
-          square: new Image({
+        images: new Immutable.List([new ResponsiveImage({
+          '1x': new Image({
             url: 'https://placehold.it/408x408',
           }),
-          square2x: new Image({
+          '2x': new Image({
             type: 'square2x',
             width: 816,
             height: 816,
@@ -63,7 +63,7 @@ const ListingCardNoImage =
       listing: new ListingModel({
         id: 'lkjg84573874yjdf',
         title: 'No picture',
-        images: new Immutable.List([new ImageRefs()]),
+        images: new Immutable.List([new ResponsiveImage()]),
         listingURL: 'https://example.com/listing/342iu4',
         author: { avatarImage: { thumb: new Image({ url: 'https://placehold.it/40x40' }) } },
         profileURL: '#profile',
@@ -90,9 +90,9 @@ const ListingCardImageError =
       listing: new ListingModel({
         id: 'lkjg84573874yjdf',
         title: 'Picture load fails',
-        images: new Immutable.List([new ImageRefs({
-          square: new Image({ url: 'https://example.com/image.png' }),
-          square2x: new Image({
+        images: new Immutable.List([new ResponsiveImage({
+          '1x': new Image({ url: 'https://example.com/image.png' }),
+          '2x': new Image({
             type: 'square2x',
             width: '816',
             height: '816',

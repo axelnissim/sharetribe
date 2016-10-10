@@ -7,12 +7,17 @@ export const Image = Immutable.Record({
   url: null,
 });
 
-export const ImageRefs = Immutable.Record({
+const ImageRefs = Immutable.Record({
   square: null,
   square2x: null,
   medium: null,
   small: null,
   thumb: null,
+});
+
+export const ResponsiveImage = Immutable.Record({
+  '1x': new Image(),
+  '2x': new Image(),
 });
 
 export const parse = (data) => {

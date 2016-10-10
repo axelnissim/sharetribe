@@ -47,8 +47,8 @@ class ListingCard extends Component {
   render() {
     const tintedRGB = tint(this.props.color, TINT_PERCENTAGE);
     const listing = this.props.listing;
-    const imageURL = listing.images.getIn([0, 'square', 'url']);
-    const image2xURL = listing.images.getIn([0, 'square2x', 'url']);
+    const imageURL = listing.images.getIn([0, '1x', 'url']);
+    const image2xURL = listing.images.getIn([0, '2x', 'url']);
     const higherRes = image2xURL ? { srcSet: `${image2xURL} 2x` } : null;
 
     const localeCode = fullLocaleCode();

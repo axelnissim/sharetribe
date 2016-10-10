@@ -1,10 +1,11 @@
 import Immutable from 'immutable';
+import { Image } from './ImageModel';
 
 export const Profile = Immutable.Record({
   familyName: 'family name',
   givenName: 'given name',
   description: 'product author',
-  avatarImage: null,
+  avatarImage: new Image(),
   profileURL: 'https://example.com/anonym',
 });
 
