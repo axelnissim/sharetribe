@@ -2,6 +2,7 @@ import { Component, PropTypes } from 'react';
 import r, { div } from 'r-dom';
 import Immutable from 'immutable';
 import styleVariables from '../../../assets/styles/variables';
+import { UUID } from '../../../models/ListingModel';
 
 import ListingCard from '../../composites/ListingCard/ListingCard';
 import ListingCardPanel from '../../composites/ListingCardPanel/ListingCardPanel';
@@ -24,8 +25,11 @@ class SearchPage extends Component {
   }
 
   listingProps(listing, color) {
+
+    // DiscoveryAPI doesn't return UUID yet but a string
+    const listingKey = listing.id instanceof UUID ? listing.id.value : listing.id;
     return {
-      key: `card_${listing.id}`,
+      key: `card_${listingKey}`,
       color,
       listing,
     };

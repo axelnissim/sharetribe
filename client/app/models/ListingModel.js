@@ -1,6 +1,8 @@
 import Immutable from 'immutable';
 import { Image, ImageRefs } from './ImageModel';
 
+export const UUID = Immutable.Record({ value: '' });
+
 const ListingModel = Immutable.Record({
   id: 'uuid',
   title: 'Listing',
@@ -22,6 +24,7 @@ const ListingModel = Immutable.Record({
 
 export const parse = (l) => new ListingModel({
   id: l.get(':id'),
+  extId: l.getIn([':attributes', ':extId']),
   title: l.getIn([':attributes', ':title']),
   images: l.getIn([':attributes', ':images']),
   authorId: l.getIn([':relationships', ':author', ':id']),
