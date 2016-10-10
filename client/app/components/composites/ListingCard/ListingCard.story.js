@@ -65,8 +65,7 @@ const ListingCardNoImage =
         title: 'No picture',
         images: new Immutable.List([new ImageRefs()]),
         listingURL: 'https://example.com/listing/342iu4',
-        avatarURL: 'https://placehold.it/40x40',
-        profileURL: '#profile',
+        orderType: new Immutable.Map({ en: 'Selling', fi: 'Myydään' }),
         price: new Immutable.Map({
           ':money': new Money({
             fractionalAmount: 1900, // eslint-disable-line no-magic-numbers
@@ -78,6 +77,13 @@ const ListingCardNoImage =
           value: 0.67, // eslint-disable-line no-magic-numbers
           unit: ':km',
         }),
+        author: {
+          familyName: 'family name',
+          givenName: 'given name',
+          description: 'product author',
+          avatarURL: 'https://placehold.it/40x40',
+          profileURL: `#profile${Math.random(10)}`, // eslint-disable-line no-magic-numbers
+        },
       }),
     },
   );
@@ -100,8 +106,7 @@ const ListingCardImageError =
           }),
         })]),
         listingURL: 'https://example.com/listing/342iu4',
-        avatarURL: 'https://placehold.it/40x40',
-        profileURL: '#profile',
+        orderType: new Immutable.Map({ en: 'Selling', fi: 'Myydään' }),
         price: new Immutable.Map({
           ':money': new Money({
             fractionalAmount: 19900, // eslint-disable-line no-magic-numbers
@@ -113,6 +118,50 @@ const ListingCardImageError =
           value: 9, // eslint-disable-line no-magic-numbers
           unit: ':miles',
         }),
+        author: {
+          familyName: 'family name',
+          givenName: 'given name',
+          description: 'product author',
+          avatarURL: 'https://placehold.it/40x40',
+          profileURL: `#profile${Math.random(10)}`, // eslint-disable-line no-magic-numbers
+        },
+      }),
+    },
+  );
+
+const ListingCardNoPrice =
+  r(ListingCard,
+    {
+      className: css.listing,
+      color: '#347F9D',
+      listing: new ListingModel({
+        id: 'lkjg84573874yjdf',
+        title: 'Title',
+        images: new Immutable.List([new ImageRefs({
+          square: new Image({
+            url: 'https://placehold.it/408x408',
+          }),
+          square2x: new Image({
+            type: 'square2x',
+            width: 816,
+            height: 816,
+            url: 'https://placehold.it/816x816',
+          }),
+        })]),
+        listingURL: 'https://example.com/listing/342iu4',
+        orderType: new Immutable.Map({ en: 'Giving away', fi: 'Annetaan' }),
+        price: null,
+        distance: new Distance({
+          value: 12972, // eslint-disable-line no-magic-numbers
+          unit: ':miles',
+        }),
+        author: {
+          familyName: 'family name',
+          givenName: 'given name',
+          description: 'product author',
+          avatarURL: 'https://placehold.it/40x40',
+          profileURL: `#profile${Math.random(10)}`, // eslint-disable-line no-magic-numbers
+        },
       }),
     },
   );
@@ -121,6 +170,11 @@ const ListingCardImageError =
 const testPrice = function testPrice(card, mountedCard) {
   it('Should display formatted price', () => {
     expect(mountedCard.text()).to.include(formatMoney(card.props.listing.price.get(':money'), card.props.listing.price.get(':priceUnit')));
+    expect(mountedCard.find('.ListingCard_price')).to.have.length(1);
+  });
+  it('Should not display order type', () => {
+    expect(mountedCard.text()).to.not.include(card.props.listing.orderType.get('en'));
+    expect(mountedCard.find('.ListingCard_orderType')).to.have.length(0);
   });
 };
 const testDistance = function testDistance(card, mountedCard) {
@@ -144,7 +198,7 @@ storiesOf('Search results')
       testDistance(card, mountedCard);
     }));
 
-    return r(storify(ListingCardBasic, containerStyle));
+    return r(storify(card, containerStyle));
   })
   .add('ListingCard - no image', () => {
     const card = ListingCardNoImage;
@@ -159,7 +213,7 @@ storiesOf('Search results')
       testDistance(card, mountedCard);
     }));
 
-    return r(storify(ListingCardNoImage, containerStyle));
+    return r(storify(card, containerStyle));
   })
   .add('ListingCard - image fail', () => {
     const card = ListingCardImageError;
@@ -176,5 +230,21 @@ storiesOf('Search results')
       testDistance(card, mountedCard);
     }));
 
-    return r(storify(ListingCardImageError, containerStyle));
-  });
+    return r(storify(card, containerStyle));
+  })
+  .add('ListingCard - no Price', () => {
+    const card = ListingCardNoPrice;
+    const mountedCard = mount(card);
+
+    specs(() => describe('ListingCard - basic', () => {
+      it('Should display order type "Giving away"', () => {
+        expect(mountedCard.text()).to.include(card.props.listing.orderType.get('en'));
+        expect(mountedCard.find('.ListingCard_orderType')).to.have.length(1);
+        expect(mountedCard.find('.ListingCard_price')).to.have.length(0);
+      });
+      testDistance(card, mountedCard);
+    }));
+
+    return r(storify(card, containerStyle));
+  })
+;

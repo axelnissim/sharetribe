@@ -120,13 +120,13 @@ class ListingCard extends Component {
               className: css.priceWrapper,
               style: { color: this.props.color },
             }, [
-              div({ className: css.price, title: price.get(':money').currency }, moneyFormatted),
+              div({ className: classNames('ListingCard_price', css.price), title: price.get(':money').currency }, moneyFormatted),
               hasPricingUnit ?
                 div({ className: css.per }, pricingUnitFormatted) :
                 null,
             ]) :
             div({
-              className: css.orderTypeLabel,
+              className: classNames('ListingCard_orderType', css.orderTypeLabel),
               style: { color: this.props.color },
             }, orderTypeLabel),
           distanceFormatted ?
