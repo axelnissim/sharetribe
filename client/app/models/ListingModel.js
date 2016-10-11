@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import { Image, ResponsiveImage } from './ImageModel';
+import { Image, ListingImage } from './ImageModel';
 import { Profile } from './ProfileModel';
 
 export const Distance = Immutable.Record({
@@ -21,9 +21,9 @@ const ListingModel = Immutable.Record({
     ':money': new Money(),
     ':pricingUnit': new Immutable.Map(),
   }),
-  images: new Immutable.List([new ResponsiveImage({
-    '1x': new Image(),
-    '2x': new Image(),
+  images: new Immutable.List([new ListingImage({
+    square: new Image(),
+    square2x: new Image(),
   })]),
   authorId: 'foo',
   author: new Profile(),
@@ -32,9 +32,9 @@ const ListingModel = Immutable.Record({
   listingURL: 'https://example.com/listing/1',
 });
 
-const parseListingImages = (images) => new ResponsiveImage({
-  '1x': images.square,
-  '2x': images.square2x,
+const parseListingImages = (images) => new ListingImage({
+  square: images.square,
+  square2x: images.square2x,
 });
 
 export const parse = (l) => new ListingModel({
